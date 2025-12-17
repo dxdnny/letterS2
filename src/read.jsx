@@ -11,7 +11,7 @@ const Container = styled.div`
   justify-content: center;
   min-height: 100vh;
   background-color: #f0f0f0;
-  font-family: 'Gamja Flower', sans-serif;
+  font-family: sans-serif;
   padding: 20px;
   box-sizing: border-box;
 `;
