@@ -129,7 +129,7 @@ const LinkBox = styled.div`
 
 function Write() {
   const [paperColor, setPaperColor] = useState("#ffe4e1");
-  const [font, setFont] = useState("'Gamja Flower', cursive");
+  const [font, setFont] = useState("cursive");
   const [content, setContent] = useState("");
   const [password, setPassword] = useState("");
   const [image, setImage] = useState(null); // 이미지 상태 추가

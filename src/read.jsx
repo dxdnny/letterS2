@@ -120,7 +120,7 @@ function Read() {
       {!isUnlocked && (
         <LockScreen>
           <h2>🔒 비밀 편지 도착!</h2>
-          <p>작성자가 설정한 암호를 대세요.</p>
+          <p>암호를 입력하세요.</p>
           <Input 
             type="password" 
             placeholder="비밀번호 입력"
@@ -133,7 +133,6 @@ function Read() {
 
       <LetterPaper 
         color={letter.style.color} 
-        font={letter.style.font}
         isLocked={!isUnlocked}
       >
         {/* ✨ 사진이 있으면 편지 내용 위에 보여줌 */}
@@ -142,7 +141,6 @@ function Read() {
         {letter.content}
         
         <div style={{marginTop: '50px', fontSize: '14px', textAlign: 'right', color: '#888'}}>
-          {new Date(letter.createdAt).toLocaleDateString()} 에 작성됨
         </div>
       </LetterPaper>
     </Container>
