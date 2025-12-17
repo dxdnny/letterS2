@@ -4,37 +4,47 @@ import styled from 'styled-components';
 import { db } from './firebase';
 import { doc, getDoc } from 'firebase/firestore';
 
-// 스타일은 Write.jsx랑 비슷하게 가져왔어요
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify_content: center;
+  justify-content: center;
   min-height: 100vh;
   background-color: #f0f0f0;
   font-family: 'Gamja Flower', sans-serif;
   padding: 20px;
+  box-sizing: border-box;
 `;
 
 const LetterPaper = styled.div`
   width: 100%;
-  max-width: 500px; /* 모바일 대응 */
-  min-height: 600px;
+  max-width: 500px;
+  min-height: 400px;
   background-color: ${(props) => props.color || '#fff'};
   border-radius: 20px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-  padding: 40px;
+  padding: 30px;
   font-family: ${(props) => props.font || 'inherit'};
-  white-space: pre-wrap; /* 줄바꿈 적용 */
-  font-size: 22px;
+  white-space: pre-wrap;
+  font-size: 20px;
   line-height: 1.8;
   position: relative;
+  box-sizing: border-box;
   
-  /* 편지가 잠겨있을 때 흐리게 처리 */
   ${(props) => props.isLocked && `
     filter: blur(10px);
     pointer-events: none;
   `}
+`;
+
+// ✨ 읽기 화면용 이미지 스타일 추가
+const LetterImage = styled.img`
+  width: 100%;
+  max-height: 400px;
+  object-fit: contain;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  display: block;
 `;
 
 const LockScreen = styled.div`
@@ -48,15 +58,17 @@ const LockScreen = styled.div`
   border-radius: 20px;
   box-shadow: 0 5px 20px rgba(0,0,0,0.2);
   text-align: center;
-  width: 300px;
+  width: 80%;
+  max-width: 300px;
 `;
 
 const Input = styled.input`
   padding: 10px;
   margin: 10px 0;
-  width: 80%;
+  width: 100%;
   font-size: 18px;
   text-align: center;
+  box-sizing: border-box;
 `;
 
 const Button = styled.button`
@@ -66,6 +78,7 @@ const Button = styled.button`
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  width: 100%;
   
   &:hover {
     background-color: #555;
@@ -73,12 +86,11 @@ const Button = styled.button`
 `;
 
 function Read() {
-  const { id } = useParams(); // URL에서 아이디 가져오기
+  const { id } = useParams();
   const [letter, setLetter] = useState(null);
   const [inputPassword, setInputPassword] = useState("");
   const [isUnlocked, setIsUnlocked] = useState(false);
 
-  // 1. 화면이 켜지면 Firebase에서 편지 데이터를 가져옴
   useEffect(() => {
     const fetchLetter = async () => {
       const docRef = doc(db, "letters", id);
@@ -93,10 +105,9 @@ function Read() {
     fetchLetter();
   }, [id]);
 
-  // 2. 비밀번호 확인 함수
   const checkPassword = () => {
     if (letter && letter.password === inputPassword) {
-      setIsUnlocked(true); // 잠금 해제!
+      setIsUnlocked(true);
     } else {
       alert("비밀번호가 틀렸어요! 땡! 🙅‍♂️");
     }
@@ -106,14 +117,13 @@ function Read() {
 
   return (
     <Container>
-      {/* 비밀번호 입력창 (잠겨있을 때만 보임) */}
       {!isUnlocked && (
         <LockScreen>
           <h2>🔒 비밀 편지 도착!</h2>
           <p>작성자가 설정한 암호를 대세요.</p>
           <Input 
             type="password" 
-            placeholder="숫자 4자리"
+            placeholder="비밀번호 입력"
             onChange={(e) => setInputPassword(e.target.value)}
           />
           <br />
@@ -121,14 +131,17 @@ function Read() {
         </LockScreen>
       )}
 
-      {/* 편지 내용 (잠겨있으면 흐리게 보임) */}
       <LetterPaper 
         color={letter.style.color} 
         font={letter.style.font}
         isLocked={!isUnlocked}
       >
+        {/* ✨ 사진이 있으면 편지 내용 위에 보여줌 */}
+        {letter.image && <LetterImage src={letter.image} alt="추억 사진" />}
+        
         {letter.content}
-        <div style={{marginTop: '50px', fontSize: '16px', textAlign: 'right', color: '#888'}}>
+        
+        <div style={{marginTop: '50px', fontSize: '14px', textAlign: 'right', color: '#888'}}>
           {new Date(letter.createdAt).toLocaleDateString()} 에 작성됨
         </div>
       </LetterPaper>
