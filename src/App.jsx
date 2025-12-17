@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Write from './Write';
-import Read from './Read';
+import Write from './write';
+import Read from './read';
 
 function App() {
   return (
