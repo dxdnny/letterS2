@@ -1,0 +1,91 @@
+import { useState } from 'react';
+import styled from 'styled-components';
+
+// 1. 스타일이 적용된 컴포넌트 만들기 (CSS를 JS 안에 쓴다고 생각하면 돼)
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify_content: center;
+  padding: 50px;
+  background-color: #f0f0f0;
+  min-height: 100vh;
+`;
+
+const LetterPaper = styled.div`
+  width: 500px;
+  height: 600px;
+  background-color: ${(props) => props.color}; /* 핵심: props로 받은 색을 적용! */
+  border-radius: 20px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  transition: background-color 0.3s ease; /* 색 바뀔 때 부드럽게 */
+`;
+
+const Title = styled.h1`
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #333;
+`;
+
+const TextArea = styled.textarea`
+  width: 100%;
+  flex: 1; /* 남은 공간 다 차지하기 */
+  background: transparent;
+  border: none;
+  resize: none;
+  font-size: 18px;
+  line-height: 1.6;
+  outline: none;
+  font-family: sans-serif;
+`;
+
+const ButtonGroup = styled.div`
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+`;
+
+const ColorButton = styled.button`
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  cursor: pointer;
+  background-color: ${(props) => props.bg};
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  
+  &:hover {
+    transform: scale(1.1);
+  }
+`;
+
+// 2. 실제 화면 로직
+function App() {
+  // 편지지 색상 상태 관리 (기본값: 연한 핑크)
+  const [paperColor, setPaperColor] = useState("#ffe4e1"); 
+
+  return (
+    <Container>
+      <Title>💌 마음을 적어보세요</Title>
+      
+      {/* color라는 이름으로 현재 상태값을 전달함 */}
+      <LetterPaper color={paperColor}>
+        <TextArea placeholder="여기에 편지 내용을 입력하세요..." />
+      </LetterPaper>
+
+      {/* 색상 변경 버튼들 */}
+      <ButtonGroup>
+        <ColorButton bg="#ffe4e1" onClick={() => setPaperColor("#ffe4e1")} /> {/* 핑크 */}
+        <ColorButton bg="#e0f7fa" onClick={() => setPaperColor("#e0f7fa")} /> {/* 하늘 */}
+        <ColorButton bg="#fff9c4" onClick={() => setPaperColor("#fff9c4")} /> {/* 노랑 */}
+        <ColorButton bg="#e8f5e9" onClick={() => setPaperColor("#e8f5e9")} /> {/* 초록 */}
+      </ButtonGroup>
+    </Container>
+  );
+}
+
+export default App;
