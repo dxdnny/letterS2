@@ -13,12 +13,17 @@ const Container = styled.div`
 `;
 
 const LetterPaper = styled.div`
-  width: 500px;
-  height: 600px;
+  
+width: 100%;          /* 화면 꽉 차게 */
+  max-width: 500px;     /* 하지만 PC에서는 너무 커지지 않게 최대치 설정 */
+  box-sizing: border-box; /* 테두리나 패딩 때문에 넘치지 않게 */
+  margin: 0 auto;       /* 가운데 정렬 */
+  padding: 20px;
+  
+ 
   background-color: ${(props) => props.color}; /* 핵심: props로 받은 색을 적용! */
   border-radius: 20px;
   box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-  padding: 40px;
   display: flex;
   flex-direction: column;
   transition: background-color 0.3s ease; /* 색 바뀔 때 부드럽게 */
@@ -40,7 +45,7 @@ const TextArea = styled.textarea`
   font-size: 18px;
   line-height: 1.6;
   outline: none;
-  font-family: sans-serif;
+  /* font-family: sans-serif; */
 `;
 
 const ButtonGroup = styled.div`
@@ -70,7 +75,7 @@ function App() {
 
   return (
     <Container>
-      <Title>💌 마음을 적어보세요</Title>
+      <Title>💌</Title>
       
       {/* color라는 이름으로 현재 상태값을 전달함 */}
       <LetterPaper color={paperColor}>

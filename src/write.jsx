@@ -161,13 +161,7 @@ function Write() {
             ))}
           </Row>
         </div>
-        <div>
-          <Label>✒️ 글씨체</Label>
-          <Row>
-            <FontButton font="'Gamja Flower', cursive" selected={font === "'Gamja Flower', cursive"} onClick={() => setFont("'Gamja Flower', cursive")}>감자꽃체</FontButton>
-            <FontButton font="sans-serif" selected={font === "sans-serif"} onClick={() => setFont("sans-serif")}>고딕체</FontButton>
-          </Row>
-        </div>
+        
         <div>
           <Label>🔒 비밀번호 (숫자 4자리)</Label>
           <Input type="password" maxLength={4} value={password} onChange={(e) => setPassword(e.target.value)} placeholder="비밀번호 설정" />

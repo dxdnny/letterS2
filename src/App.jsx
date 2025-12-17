@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Write from './Write'; // 아까 이름 바꾼 파일 불러오기
-import Read from './Read';   // 방금 만든 읽기 파일 불러오기
+import Write from './write'; // 아까 이름 바꾼 파일 불러오기
+import Read from './read';   // 방금 만든 읽기 파일 불러오기
 
 function App() {
   return (
